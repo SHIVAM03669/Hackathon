@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Tracker</title>
+    <link rel="stylesheet" href="attdence.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Attendance Tracker</h1>
+        <div id="attendance-info">
+            <label><strong>Date:</strong></label>
+            <input type="date" id="attendance-date">
+            <label><strong>Status:</strong></label>
+            <select id="attendance-status">
+                <option value="present">Present</option>
+                <option value="absent">Absent</option>
+            </select>
+        </div>
+        <button id="mark-attendance">Mark Attendance</button>
+        
+        <div id="attendance-summary">
+            <h2>Attendance Summary</h2>
+            <p><strong>Total Classes:</strong> <span id="total-classes">0</span></p>
+            <p><strong>Classes Attended:</strong> <span id="classes-attended">0</span></p>
+            <p><strong>Classes Absent:</strong> <span id="classes-absent">0</span></p>
+            <p><strong>Attendance %:</strong> <span id="attendance-percentage">0.00%</span></p>
+        </div>
+        
+        <div id="attendance-record">
+            <h2>Daily Attendance Record</h2>
+            <ul id="attendance-list"></ul>
+        </div>
+    </div>
+    <script src="attedance.js"></script>
+</body>
+</html>

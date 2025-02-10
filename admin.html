@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url(./mit\ login\ page.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #333;
+        }
+
+        header {
+            background-color: #d38e45;
+            color: #fff;
+            padding: 1.5em;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        nav li {
+            margin-right: 20px;
+            transition: transform 0.3s;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #5E3B22;
+            transform: scale(1.1);
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2em;
+            backdrop-filter: blur(10px);
+        }
+
+        section {
+            background-color: #F4E3D3;
+            padding: 2em;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.8em;
+            color: #3D2B26;
+            border-bottom: 2px solid #5E3B22;
+            padding-bottom: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #5E3B22;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            border-color: #5E3B22;
+            outline: none;
+            box-shadow: 0 0 5px #5E3B22;
+        }
+
+        button {
+            background-color: #C76D50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            transition: background-color 0.3s;
+        }
+
+        th {
+            background-color: #5E3B22;
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav li {
+                margin-bottom: 10px;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#Admin">Admin</a></li>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#student-overview">Student Overview</a></li>
+                <li><a href="#managed-courses">Managed Courses</a></li>
+                <li><a href="./calnder-and-community.html">Community Calendar</a></li> <!-- New Tab -->
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- <header>
+        <nav>
+            <ul>
+                <li><a href="#Admin">Admin</a></li>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#student-overview">Student Overview</a></li>
+                <li><a href="#managed-courses">Managed Courses</a></li>
+            </ul>
+        </nav>
+    </header> -->
+    <main>
+        <section id="personal-info">
+            <h2>Personal Information</h2>
+            <form id="profile-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="department">Department:</label>
+                <input type="text" id="department" name="department" required>
+                <button id="update-profile" type="button">Update Profile</button>
+            </form>
+        </section>
+        <section id="student-overview">
+            <h2>Student Overview</h2>
+            <table id="student-table">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Course</th>
+                    </tr>
+                </thead>
+                <tbody id="student-data">
+                    <!-- student data will be displayed here -->
+                </tbody>
+            </table>
+        </section>
+        <section id="managed-courses">
+            <h2>Managed Courses</h2>
+            <table id="course-table">
+                <thead>
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course Name</th>
+                        <th>Faculty</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="course-data">
+                    <!-- course data will be displayed here -->
+                </tbody>
+            </table>
+            <button id="add-course">Add Course</button>
+        </section>
+    </main>
+    <script>
+        // Profile form submission
+        document.getElementById('update-profile').addEventListener('click', updateProfile);
+
+        // Add course button click
+        document.getElementById('add-course').addEventListener('click', addCourse);
+
+        // Student data
+        let students = [];
+
+        // Course data
+        let courses = [];
+
+        // Function to update profile
+        function updateProfile() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const department = document.getElementById('department').value;
+
+            localStorage.setItem('profile', JSON.stringify({ name, email, department }));
+            displayPersonalInfo(name, email, department);
+        }
+
+        // Function to add course
+        function addCourse() {
+            const courseName = prompt('Enter course name');
+            const faculty = prompt('Enter faculty');
+
+            if (courseName && faculty) {
+                const newCourse = { id: courses.length + 1, name: courseName, faculty };
+                courses.push(newCourse);
+                localStorage.setItem('courses', JSON.stringify(courses));
+                displayCourseData(courses);
+            }
+        }
+
+        // Function to display student data
+        function displayStudentData(students) {
+            const studentData = document.getElementById('student-data');
+            studentData.innerHTML = '';
+            students.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.id}</td>
+                    <td>${student.name}</td>
+                    <td>${student.course}</td>
+                `;
+                studentData.appendChild(row);
+            });
+        }
+
+        // Function to display course data
+        function displayCourseData(courses) {
+            const courseData = document.getElementById('course-data');
+            courseData.innerHTML = '';
+            courses.forEach(course => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${course.id}</td>
+                    <td>${course.name}</td>
+                    <td>${course.faculty}</td>
+                    <td>
+                        <button class="edit-course" onclick="editCourse(${course.id})">Edit</button>
+                        <button class="delete-course" onclick="deleteCourse(${course.id})">Delete</button>
+                    </td>
+                `;
+                courseData.appendChild(row);
+            });
+        }
+
+        // Function to edit course
+        function editCourse(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (course) {
+                const newName = prompt('Enter new course name', course.name);
+                const newFaculty = prompt('Enter new faculty', course.faculty);
+                if (newName && newFaculty) {
+                    course.name = newName;
+                    course.faculty = newFaculty;
+                    localStorage.setItem('courses', JSON.stringify(courses));
+                    displayCourseData(courses);
+                }
+            }
+        }
+
+        // Function to delete course
+        function deleteCourse(courseId) {
+            courses = courses.filter(c => c.id !== courseId);
+            localStorage.setItem('courses', JSON.stringify(courses));
+            displayCourseData(courses);
+        }
+
+        // Load profile data from localStorage
+        const profileData = localStorage.getItem('profile');
+        if (profileData) {
+            const profile = JSON.parse(profileData);
+            document.getElementById('name').value = profile.name;
+            document.getElementById('email').value = profile.email;
+            document.getElementById('department').value = profile.department;
+            displayPersonalInfo(profile.name, profile.email, profile.department);
+        }
+
+        // Load courses data from localStorage
+        const coursesData = localStorage.getItem('courses');
+        if (coursesData) {
+            courses = JSON.parse(coursesData);
+            displayCourseData(courses);
+        }
+
+        // Load student data (for demonstration purposes only)
+        students = [
+            { id: 1, name: 'John Doe', course: 'Math' },
+            { id: 2, name: 'Jane Doe', course: 'Science' },
+            { id: 3, name: 'Bob Smith', course: 'English' }
+        ];
+        displayStudentData(students);
+
+        // Function to display personal information
+        function displayPersonalInfo(name, email, department) {
+            const personalInfoSection = document.getElementById('personal-info');
+            personalInfoSection.innerHTML = `
+                <h2>Personal Information</h2>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Department:</strong> ${department}</p>
+            `;
+        }
+    </script>
+</body>
+
+</html>

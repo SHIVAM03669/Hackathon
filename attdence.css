@@ -1,0 +1,63 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F4E3D3;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    background: #FAF3E8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #3D2B26; /* Purple border */
+}
+
+h1, h2 {
+    text-align: center;
+    color: #3D2B26; /* Dark purple */
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #4e342e; /* Brown color */
+}
+
+input[type="date"],
+select {
+    width: calc(100% - 20px);
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #3D2B26; /* Purple button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin: 10px 0;
+}
+
+button:hover {
+    background-color: #3D2B26; /* Darker purple on hover */
+}
+
+#attendance-summary, #attendance-record {
+    margin-top: 20px;
+}
+
+#attendance-list {
+    list-style-type: none;
+    padding: 0;
+}

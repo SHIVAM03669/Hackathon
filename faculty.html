@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- For doughnut chart -->
+    <style>
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+}
+
+.logo img {
+    height: 60px; /* Adjusted height for consistency */
+    width: auto; /* Maintain aspect ratio */
+    border-radius: 50%; /* Optional: make it circular */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo span {
+    font-weight: bold;
+    padding-left: 10px;
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #4a90e2; /* Soft blue for the logo text */
+}
+ 
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .chat-box {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            animation: slideIn 2s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100px);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #1e3d59;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #336699;
+        }
+
+        section {
+            margin-bottom: 50px;
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .main-content {
+            margin-top: 100px;
+            padding: 30px;
+            transition: padding 0.3s;
+            animation: slideIn 2s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100px);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .nav-menu li a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            padding: 15px;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            border-radius: 8px;
+        }
+
+        .nav-menu li a:hover {
+            background-color: #336699;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Apply for Holiday Section Styling */
+        .holiday-form {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        /* Input fields */
+        .holiday-form input[type="text"],
+        .holiday-form input[type="date"] {
+            width: calc(50% - 20px);
+            padding: 15px;
+            margin-right: 10px;
+            border: 2px solid #1e3d59;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+            box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Input hover and focus effect */
+        .holiday-form input[type="text"]:hover,
+        .holiday-form input[type="date"]:hover {
+            background-color: #eef1f5;
+            border-color: #336699;
+        }
+
+        .holiday-form input[type="text"]:focus,
+        .holiday-form input[type="date"]:focus {
+            outline: none;
+            background-color: #eef1f5;
+            border-color: #1e3d59;
+            box-shadow: 0 0 10px rgba(50, 100, 150, 0.2);
+        }
+
+        /* Button styling */
+        .holiday-form button {
+            padding: 15px 25px;
+            font-size: 16px;
+            background-color: #1e3d59;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+
+        /* Button hover animation */
+        .holiday-form button:hover {
+            background-color: #336699;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Button click effect */
+        .holiday-form button:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Fade-in animation for the form */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        /* Top Navigation Bar */
+        .navbar {
+            background-color: #1e3d59;
+            color: white;
+            padding: 20px 30px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 30px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-menu li {
+            display: inline;
+        }
+
+        .nav-menu li a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            padding: 15px;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            border-radius: 8px;
+        }
+
+        .nav-menu li a:hover {
+            background-color: #336699;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Scroll animation */
+        .navbar.scrolled {
+            background-color: #14243c;
+            padding: 15px 30px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            /* Spacing for the fixed navbar */
+            padding: 30px;
+            transition: padding 0.3s;
+        }
+
+        .main-content section {
+            margin-bottom: 50px;
+        }
+
+        .main-content h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #1e3d59;
+            transition: color 0.3s;
+        }
+
+        .main-content p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* Timetable Styles */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            text-align: center;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .schedule-table th {
+            background-color: #1e3d59;
+            color: white;
+            font-size: 18px;
+        }
+
+        .schedule-table td {
+            font-size: 16px;
+        }
+
+        .schedule-table tr:nth-child(even) {
+            background-color: #f4f4f4;
+        }
+
+        /* Chat Section */
+        .chat-box {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .student-message {
+            background-color: #e0f7fa;
+            text-align: left;
+        }
+
+        .faculty-message {
+            background-color: #ffe082;
+            text-align: right;
+        }
+
+        /* Doughnut Graph for Students Section */
+        #studentGraph {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        /* Attendance and Assignments Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            text-align: center;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .data-table th {
+            background-color: #1e3d59;
+            color: white;
+            font-size: 18px;
+        }
+
+        .data-table td {
+            font-size: 16px;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: #f4f4f4;
+        }
+
+        /* Apply for Holiday Section */
+        .holiday-form {
+            margin-top: 20px;
+        }
+
+        .holiday-form input {
+            padding: 10px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .nav-menu li a {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar h2 {
+                font-size: 24px;
+            }
+
+            .nav-menu li a {
+                font-size: 16px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .schedule-table th,
+            .schedule-table td,
+            .data-table th,
+            .data-table td {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+
+        /* Chat Input Section */
+        .chat-input {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .chat-input button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #1e3d59;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            background-color: #336699;
+        }
+
+        /* Style for the attendance table radio buttons */
+        .data-table input[type="radio"] {
+            transform: scale(1.2);
+            margin: 5px;
+        }
+
+        /* Style for the submit button */
+        #attendance-form button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #1e3d59;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #attendance-form button:hover {
+            background-color: #336699;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="logo">
+        <img src="./asset/MIT_ADT_logo_main-removebg-preview.png" alt="School Logo" height="60"> <!-- Adjusted height for consistency -->
+        <span>School Name</span>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <img src="./asset/MIT_ADT_logo_main-removebg-preview.png" alt=""height="250">
+    <div class="navbar">
+        <h2>Faculty Dashboard</h2>
+        <ul class="nav-menu">
+            <li><a href="#schedule">Schedule</a></li>
+            <li><a href="#chat">Chat</a></li>
+            <li><a href="#students">Students</a></li>
+            <li><a href="#attendance">Attendance</a></li>
+            <li><a href="#assignments">Assignments</a></li>
+            <li><a href="#apply-holiday">Apply for Holiday</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Schedule Section -->
+        <section id="schedule">
+            <h1>Schedule</h1>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>9:00 AM - 10:00 AM</th>
+                        <th>10:00 AM - 11:00 AM</th>
+                        <th>11:00 AM - 12:00 PM</th>
+                        <th>12:00 PM - 1:00 PM</th>
+                        <th>1:00 PM - 2:00 PM</th>
+                        <th>2:00 PM - 3:00 PM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Monday</td>
+                        <td>Maths (Mr. Smith)</td>
+                        <td>Physics (Ms. Johnson)</td>
+                        <td>Break</td>
+                        <td>Chemistry (Dr. Adams)</td>
+                        <td>Biology (Ms. Taylor)</td>
+                        <td>Computer Science (Mr. White)</td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday</td>
+                        <td>English (Mr. Brown)</td>
+                        <td>Maths (Mr. Smith)</td>
+                        <td>Break</td>
+                        <td>Physics (Ms. Johnson)</td>
+                        <td>Physical Education (Coach Lee)</td>
+                        <td>Chemistry (Dr. Adams)</td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday</td>
+                        <td>History (Mr. Green)</td>
+                        <td>English (Mr. Brown)</td>
+                        <td>Break</td>
+                        <td>Computer Science (Mr. White)</td>
+                        <td>Maths (Mr. Smith)</td>
+                        <td>Biology (Ms. Taylor)</td>
+                    </tr>
+                    <tr>
+                        <td>Thursday</td>
+                        <td>Physics (Ms. Johnson)</td>
+                        <td>History (Mr. Green)</td>
+                        <td>Break</td>
+                        <td>Maths (Mr. Smith)</td>
+                        <td>Chemistry (Dr. Adams)</td>
+                        <td>Computer Science (Mr. White)</td>
+                    </tr>
+                    <tr>
+                        <td>Friday</td>
+                        <td>English (Mr. Brown)</td>
+                        <td>Physical Education (Coach Lee)</td>
+                        <td>Break</td>
+                        <td>Physics (Ms. Johnson)</td>
+                        <td>Biology (Ms. Taylor)</td>
+                        <td>Chemistry (Dr. Adams)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Chat Section -->
+        <!-- Chat Section -->
+        <section id="chat">
+            <h1>Chat</h1>
+            <div class="chat-box" id="chat-box">
+                <div class="chat-message student-message">Student: I have a doubt in question 5 from today's maths
+                    assignment.</div>
+                <div class="chat-message faculty-message">Faculty: Sure! Let me explain that to you.</div>
+                <div class="chat-message student-message">Student: Thank you! It's much clearer now.</div>
+            </div>
+
+            <!-- Input Field and Send Button -->
+            <div class="chat-input">
+                <input type="text" id="message-input" placeholder="Type your message here..." required>
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </section>
+
+
+        <!-- Students Section with Doughnut Graph -->
+        <section id="students">
+            <h1>Students Performance</h1>
+            <canvas id="studentGraph"></canvas>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Test Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Emma Johnson</td>
+                        <td>85</td>
+                    </tr>
+                    <tr>
+                        <td>Liam Smith </td>
+                        <td>90</td>
+                    </tr>
+                    <tr>
+                        <td>Olivia Brown</td>
+                        <td>78</td>
+                    </tr>
+                    <tr>
+                        <td>Noah Davis</td>
+                        <td>92</td>
+                    </tr>
+                    <tr>
+                        <td>Ava Wilson</td>
+                        <td>88</td>
+                    </tr>
+                    <tr>
+                        <td>Ethan Miller</td>
+                        <td>75</td>
+                    </tr>
+                    <tr>
+                        <td>Sophia Lee</td>
+                        <td>95</td>
+                    </tr>
+                    <tr>
+                        <td>James Anderson</td>
+                        <td>82</td>
+                    </tr>
+                    <tr>
+                        <td>Mia Garcia</td>
+                        <td>79</td>
+                    </tr>
+                    <tr>
+                        <td>William Thompson</td>
+                        <td>91</td>
+                    </tr>
+                    <tr>
+                        <td>Isabella Martinez</td>
+                        <td>86</td>
+                    </tr>
+                    <tr>
+                        <td>Lucas Taylor</td>
+                        <td>89</td>
+                    </tr>
+                    <tr>
+                        <td>Amelia Moore</td>
+                        <td>83</td>
+                    </tr>
+                    <tr>
+                        <td>Mason White</td>
+                        <td>94</td>
+                    </tr>
+                    <tr>
+                        <td>Harper Thor</td>
+                        <td>77</td>
+                    </tr>
+                    <tr>
+                        <td>Logan Jackson</td>
+                        <td>99</td>
+                    </tr>
+                    <tr>
+                        <td>Charlotte Harris</td>
+                        <td>80</td>
+                    </tr>
+                    <tr>
+                        <td>Benjamin Clark</td>
+                        <td>93</td>
+                    </tr>
+                    <tr>
+                        <td>Evelyn Lewis</td>
+                        <td>81</td>
+                    </tr>
+                    <tr>
+                        <td>Henry Walker</td>
+                        <td>88</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Attendance Section -->
+        <section id="attendance">
+            <h1>Attendance</h1>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Absent</th>
+                        <th>Present</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Emma Johnson</td>
+                        <td><input type="radio" name="student1" value="Present"></td>
+                        <td><input type="radio" name="student1" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Liam Smith</td>
+                        <td><input type="radio" name="student2" value="Present"></td>
+                        <td><input type="radio" name="student2" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Olivia Brown</td>
+                        <td><input type="radio" name="student3" value="Present"></td>
+                        <td><input type="radio" name="student3" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Noah Davis</td>
+                        <td><input type="radio" name="student4" value="Present"></td>
+                        <td><input type="radio" name="student4" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Ava Wilson</td>
+                        <td><input type="radio" name="student5" value="Present"></td>
+                        <td><input type="radio" name="student5" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Ethan Miller</td>
+                        <td><input type="radio" name="student6" value="Present"></td>
+                        <td><input type="radio" name="student6" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Sophia Lee</td>
+                        <td><input type="radio" name="student7" value="Present"></td>
+                        <td><input type="radio" name="student7" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>James Anderson</td>
+                        <td><input type="radio" name="student8" value="Present"></td>
+                        <td><input type="radio" name="student8" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Mia Garcia</td>
+                        <td><input type="radio" name="student9" value="Present"></td>
+                        <td><input type="radio" name="student9" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>William Thompson</td>
+                        <td><input type="radio" name="student10" value="Present"></td>
+                        <td><input type="radio" name="student10" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Isabella Martinez</td>
+                        <td><input type="radio" name="student11" value="Present"></td>
+                        <td><input type="radio" name="student11" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Lucas Taylor</td>
+                        <td><input type="radio" name="student12" value="Present"></td>
+                        <td><input type="radio" name="student12" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Amelia Moore</td>
+                        <td><input type="radio" name="student13" value="Present"></td>
+                        <td><input type="radio" name="student13" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Mason White</td>
+                        <td><input type="radio" name="student14" value="Present"></td>
+                        <td><input type="radio" name="student14" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Harper Thomas</td>
+                        <td><input type="radio" name="student15" value="Present"></td>
+                        <td><input type="radio" name="student15" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Logan Jackson</td>
+                        <td><input type="radio" name="student16" value="Present"></td>
+                        <td><input type="radio" name="student16" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Charlotte Harris</td>
+                        <td><input type="radio" name="student17" value="Present"></td>
+                        <td><input type="radio" name="student17" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Benjamin Clark</td>
+                        <td><input type="radio" name="student18" value="Present"></td>
+                        <td><input type="radio" name="student18" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Evelyn Lewis</td>
+                        <td><input type="radio" name="student19" value="Present"></td>
+                        <td><input type="radio" name="student19" value="Absent"></td>
+                    </tr>
+                    <tr>
+                        <td>Henry Walker</td>
+                        <td><input type="radio" name="student20" value="Present"></td>
+                        <td><input type="radio" name="student20" value="Absent"></td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </section>
+
+        <!-- Assignments Section -->
+        <!-- Assignments Section -->
+        <section id="assignments">
+            <h1>Assignments</h1>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Assignment Name</th>
+                        <th>Assigned By</th>
+                        <th>Due Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Math Homework</td>
+                        <td>Mr. Smith</td>
+                        <td>2024-10-01</td>
+                    </tr>
+                    <tr>
+                        <td>Physics Project</td>
+                        <td>Ms. Johnson</td>
+                        <td>2024-10-05</td>
+                    </tr>
+                    <tr>
+                        <td>Chemistry Lab Report</td>
+                        <td>Dr. Adams</td>
+                        <td>2024-10-10</td>
+                    </tr>
+                    <tr>
+                        <td>Biology Essay</td>
+                        <td>Ms. Taylor</td>
+                        <td>2024-10-12</td>
+                    </tr>
+                    <tr>
+                        <td>History Presentation</td>
+                        <td>Mr. Green</td>
+                        <td>2024-10-15</td>
+                    </tr>
+                    <tr>
+                        <td>English Literature Analysis</td>
+                        <td>Mr. Brown</td>
+                        <td>2024-10-18</td>
+                    </tr>
+                    <tr>
+                        <td>Computer Science Project</td>
+                        <td>Mr. White</td>
+                        <td>2024-10-20</td>
+                    </tr>
+                    <tr>
+                        <td>Math Quiz</td>
+                        <td>Mr. Smith</td>
+                        <td>2024-10-22</td>
+                    </tr>
+                    <tr>
+                        <td>Physics Lab</td>
+                        <td>Ms. Johnson</td>
+                        <td>2024-10-25</td>
+                    </tr>
+                    <tr>
+                        <td>Physical Education Report</td>
+                        <td>Coach Lee</td>
+                        <td>2024-10-30</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+        <!-- Apply for Holiday Section -->
+        <section id="apply-holiday">
+            <h1>Apply for Holiday</h1>
+            <div class="holiday-form">
+                <input type="text" placeholder="Reason for Holiday" required>
+                <input type="date" required>
+                <button type="submit">Apply</button>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

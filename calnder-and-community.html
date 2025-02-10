@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Notice Board with Calendar</title>
+    <style>
+        /* Reset some basic elements */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f3ece4;
+            /* Light beige background */
+            margin: 0;
+            padding: 0;
+            color: #4e342e;
+            /* Dark brown for text */
+        }
+
+        header {
+            background: linear-gradient(90deg, #e8b98e, #d19a76);
+            /* Gradient using peachy tones */
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 1.8rem;
+            font-weight: bold;
+            position: relative;
+        }
+
+        #community-board,
+        #post-announcement,
+        #calendar-section {
+            padding: 25px;
+            background-color: #ffffff;
+            margin: 25px auto;
+            max-width: 1000px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Announcement list styles */
+        #announcement-list,
+        #event-list-items {
+            list-style: none;
+            padding: 0;
+        }
+
+        #announcement-list li,
+        #event-list-items li {
+            background-color: #f9e1d4;
+            /* Light peach background for list items */
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        #announcement-list li:hover,
+        #event-list-items li:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Calendar styles */
+        #calendar {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        #calendar td,
+        #calendar th {
+            border: 1px solid #bbb;
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        #calendar th {
+            background-color: #d19a76;
+            /* Darker peach for calendar header */
+            color: white;
+            font-weight: bold;
+        }
+
+        #calendar td {
+            background-color: #fdfdfd;
+            /* Light background for calendar cells */
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        #calendar td:hover {
+            background-color: #fce8d8;
+            /* Light peach on hover */
+            transform: scale(1.05);
+        }
+
+        #calendar td.event-day {
+            background-color: #e8b98e;
+            /* Accent peach for event days */
+            color: white;
+            font-weight: bold;
+        }
+
+        #calendar td.event-day:hover {
+            background-color: #d19a76;
+            /* Darker shade on hover */
+        }
+
+        /* Notification button */
+        #notification-tab {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background-color: #d19a76;
+            /* Accent peach for notifications */
+            padding: 12px 18px;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #notification-tab:hover {
+            background-color: #c78861;
+            /* Darker peach on hover */
+            transform: translateY(-3px);
+        }
+
+        /* Post Announcement Section */
+        #post-announcement h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        #announcement-input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #d1c4b0;
+            /* Light border for input */
+            margin-bottom: 15px;
+            transition: all 0.2s;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        #announcement-input:focus {
+            border-color: #e8b98e;
+            /* Peach color on focus */
+            box-shadow: 0 0 10px rgba(232, 185, 142, 0.1);
+        }
+
+        #event-date {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #d1c4b0;
+            /* Light border for input */
+            outline: none;
+            transition: border 0.2s;
+            margin-bottom: 15px;
+        }
+
+        #event-date:focus {
+            border-color: #e8b98e;
+            /* Peach color on focus */
+        }
+
+        button {
+            background-color: #e8b98e;
+            /* Peach button */
+            color: white;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: #d19a76;
+            /* Darker peach on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Event List Styling */
+        #event-list h3 {
+            font-size: 1.3rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #4e342e;
+            /* Dark brown for event list header */
+        }
+
+        #event-list-items {
+            padding: 10px;
+            background: #fce8d8;
+            /* Light peach for event list */
+            border-radius: 8px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Community Notice Board</h1>
+        <button id="notification-tab">Notifications</button>
+    </header>
+
+    <div id="community-board">
+        <h2>Announcements</h2>
+        <ul id="announcement-list">
+            <!-- Announcements will be dynamically added here -->
+        </ul>
+    </div>
+
+    <div id="post-announcement" style="display: none;">
+        <h2>Post an Announcement or Event</h2>
+        <textarea id="announcement-input" placeholder="Type your announcement here"></textarea><br>
+        <label for="event-date">Event Date:</label>
+        <input type="date" id="event-date"><br><br>
+        <button id="post-button">Post</button>
+    </div>
+
+    <div id="calendar-section">
+        <h2>Event Calendar</h2>
+        <table id="calendar">
+            <!-- Calendar will be generated here -->
+        </table>
+        <div id="event-list">
+            <h3>Upcoming Events</h3>
+            <ul id="event-list-items">
+                <!-- Event details will be listed here -->
+            </ul>
+        </div>
+    </div>
+
+    <script src="./admin-calender.js"></script>
+</body>
+
+</html>

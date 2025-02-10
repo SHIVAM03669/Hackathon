@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --main-color: #d38e45;
+  --red: #C76D50;
+  --orange: #DDA882;
+  --light-color: #3D2B26;
+  --light-bg: #F4E3D3;
+  --black: #5E3B22;
+  --white: #FAF3E8;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+@layer components {
+  .btn {
+    @apply bg-[#d38e45] text-white px-6 py-2 rounded-lg hover:bg-[#C76D50] transition-colors;
+  }
+  
+  .input {
+    @apply w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d38e45];
+  }
+}
